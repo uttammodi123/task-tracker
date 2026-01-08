@@ -27,7 +27,7 @@ public:
         return id;
     }
 
-    string getdescription(){
+    string getDescription(){
         return description;
     }
 
@@ -39,7 +39,7 @@ public:
         return createdAt;
     }
 
-    string getUpdatedAtt(){
+    string getUpdatedAt(){
         return updatedAt;
     }
 
