@@ -40,10 +40,10 @@ vector<Task> loadTasks(){
 
             tasks.push_back(t);
         }
-
-        file.close();
-        return tasks;
     }
+
+    file.close();
+    return tasks;
 }
 
 void saveTasks(const vector<Task>& tasks){
