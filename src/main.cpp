@@ -1,4 +1,6 @@
 #include <bits/stdc++.h>
+#include "task.h"
+#include "storage.h"
 using namespace std;
 
 int main(int argc, char* argv[]) {
@@ -9,7 +11,31 @@ int main(int argc, char* argv[]) {
 
     string command = argv[1];
 
-    cout << "Command received: " << command << endl;
+    vector<Task> tasks = loadTasks();
 
+    if(command=="add"){
+
+        if(argc<3){
+            cout<<"Error : task description missing\n";
+            return 0;
+        }
+
+        string description = argv[2];
+        int newId = 1;
+        for (auto &t : tasks) {
+            newId = max(newId, t.getId() + 1);
+        }
+
+
+        Task newTask(newId, description);
+        tasks.push_back(newTask);
+        saveTasks(tasks);
+
+        cout << "Task added successfully (ID: " << newId << ")\n";
+    }
+    else{
+        cout << "Unknown command\n";
+    }
+    
     return 0;
 }
