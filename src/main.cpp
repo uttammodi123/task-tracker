@@ -110,10 +110,60 @@ int main(int argc, char* argv[]) {
         saveTasks(tasks);
         cout << "Task marked as in-progress (ID: " << id << ")\n";
     }
+    else if(command =="delete"){
+        if (argc<3) {
+            cout << "Error: task ID missing\n";
+            return 0;
+        }
 
+        int id = stoi(argv[2]);
+        bool found = false;
+
+        for(auto it = tasks.begin(); it!=tasks.end(); it++){
+            if(it->getId()==id){
+                tasks.erase(it);
+                found = true;
+                break;
+            }
+        }
+
+        if(!found){
+            cout << "Task not found\n";
+            return 0;
+        }
+        saveTasks(tasks);
+        cout << "Task deleted successfully (ID: " << id << ")\n";
+    }
+    else if(command == "update"){
+        if (argc<4) {
+            cout << "Error: task ID or new description missing\n";
+            return 0;
+        }
+
+        int id = stoi(argv[2]);
+        string newDescription = argv[3];
+        bool found = false;
+
+        for(auto &t: tasks){
+            if(t.getId()==id){
+                t.update(t.getId(), newDescription, t.getStatus(), t.getCreatedAt(), "");
+                found = true;
+                break;
+            }
+        }
+
+        if(!found){
+            cout << "Task not found\n";
+            return 0;
+        }
+        saveTasks(tasks);
+        cout << "Task updated successfully (ID: " << id << ")\n";
+    }
     else{
         cout << "Unknown command\n";
     }
     
     return 0;
+    
+    
 }

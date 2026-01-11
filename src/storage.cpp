@@ -46,30 +46,33 @@ vector<Task> loadTasks(){
     return tasks;
 }
 
-void saveTasks(const vector<Task>& tasks){
-    ofstream file("data/tasks.json");
-    
+void saveTasks(const vector<Task>& tasks) {
+    ofstream file("data/tasks.json", ios::trunc);
+
     if (!file.is_open()) {
         cout << "Failed to open tasks.json\n";
+        return;
     }
 
-    file<<"[\n";
+    file << "[\n";
 
-    for(int i=0; i<tasks.size(); i++){
+    for (int i = 0; i < tasks.size(); i++) {
         Task it = tasks[i];
-        file<<" {\n";
-        file<<"   \"id\": "<< it.getId()<<",\n";
-        file<<"   \"description\": \"" << it.getDescription() << "\",\n";
-        file<<"   \"status\": \"" << it.getStatus() << "\",\n";
-        file<<"   \"created at\": \"" << it.getCreatedAt() << "\",\n";
-        file<<"   \"updated at\": \"" << it.getUpdatedAt() << "\"\n";
-        file<<" }";
 
-        if(i!=tasks.size()-1) file<<",";
-        file<<"\n";
+        file << "  {\n";
+        file << "    \"id\": " << it.getId() << ",\n";
+        file << "    \"description\": \"" << it.getDescription() << "\",\n";
+        file << "    \"status\": \"" << it.getStatus() << "\",\n";
+        file << "    \"created_at\": \"" << it.getCreatedAt() << "\",\n";
+        file << "    \"updated_at\": \"" << it.getUpdatedAt() << "\"\n";
+        file << "  }";
+
+        if (i != tasks.size() - 1)
+            file << ",";
+
+        file << "\n";
     }
 
-    file<<"]";
+    file << "]";
     file.close();
 }
-
