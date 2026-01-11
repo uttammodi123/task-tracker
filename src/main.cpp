@@ -86,7 +86,31 @@ int main(int argc, char* argv[]) {
         saveTasks(tasks);
         cout << "Task marked as done (ID: " << id << ")\n";
     }
-    
+    else if(command == "mark-in-progress"){
+        if (argc<3) {
+            cout << "Error: task ID missing\n";
+            return 0;
+        }
+
+        int id = stoi(argv[2]);
+        bool found = false;
+
+        for(auto &t: tasks){
+            if(t.getId()==id){
+                t.markInProgress();
+                found = true;
+                break;
+            }
+        }
+
+        if(!found){
+            cout << "Task not found\n";
+            return 0;
+        }
+        saveTasks(tasks);
+        cout << "Task marked as in-progress (ID: " << id << ")\n";
+    }
+
     else{
         cout << "Unknown command\n";
     }
