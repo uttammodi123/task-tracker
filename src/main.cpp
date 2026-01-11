@@ -33,6 +33,35 @@ int main(int argc, char* argv[]) {
 
         cout << "Task added successfully (ID: " << newId << ")\n";
     }
+    else if(command == "list"){
+        if(tasks.empty()){
+            cout<<"No tasks found.\n";
+            return 0;
+        }
+
+        if(argc==2){
+            for(auto &t : tasks){
+                cout<<"["<<t.getId()<<"]"
+                    <<t.getDescription()
+                    <<"("<<t.getStatus()<<")\n";
+            }
+        }
+        else{
+            string filter = argv[2];
+            bool found = false;
+
+            for(auto &t:tasks){
+                if(t.getStatus()==filter){
+                    cout<<"["<<t.getId()<<"]"
+                        <<t.getDescription()
+                        <<"("<<t.getStatus()<<")\n";
+                    found = true;
+                }
+            }
+
+            if(!found) cout<<"No tasks with status : "<<filter<<"\n";
+        }
+    }
     else{
         cout << "Unknown command\n";
     }
