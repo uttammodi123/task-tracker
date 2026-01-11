@@ -62,6 +62,31 @@ int main(int argc, char* argv[]) {
             if(!found) cout<<"No tasks with status : "<<filter<<"\n";
         }
     }
+    else if(command == "mark-done"){
+        if (argc<3) {
+            cout << "Error: task ID missing\n";
+            return 0;
+        }
+
+        int id = stoi(argv[2]);
+        bool found = false;
+
+        for(auto &t: tasks){
+            if(t.getId()==id){
+                t.markDone();
+                found = true;
+                break;
+            }
+        }
+
+        if(!found){
+            cout << "Task not found\n";
+            return 0;
+        }
+        saveTasks(tasks);
+        cout << "Task marked as done (ID: " << id << ")\n";
+    }
+    
     else{
         cout << "Unknown command\n";
     }
